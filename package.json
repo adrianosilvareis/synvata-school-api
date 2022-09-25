@@ -1,0 +1,11 @@
+{
+  "name": "synvata-school-api",
+  "version": "1.0.0",
+  "author": "Adriano Reis <adriano@vizir.com.br>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "packages/libs/*"
+  ]
+}

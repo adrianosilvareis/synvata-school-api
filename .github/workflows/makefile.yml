@@ -1,0 +1,30 @@
+name: Makefile CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:    
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v3.0.0 
+      with:
+        node-version: 16.x
+      
+    - name: Install dependencies
+      run: make install
+      
+    - name: Build project
+      run: make build
+      
+    - name: Run lint
+      run: make lint
+    
+    - name: Run test_ci
+      run: make test_ci

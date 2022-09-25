@@ -1,0 +1,15 @@
+{
+  "name": "@libs/jest-config-lib",
+  "version": "1.0.0",
+  "main": "jest.config.js",
+  "author": "Adriano Reis <adriano@vizir.com.br>",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^27.5.1"
+  },
+  "scripts": {
+    "test": "echo without tests",
+    "build": "echo not able to build",
+    "lint": "echo not able to lint"
+  }
+}

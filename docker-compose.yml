@@ -1,0 +1,27 @@
+version: "3.8"
+
+x-app: &x-app
+  image: node:16
+  volumes:
+    - $PWD:$PWD
+
+services:
+  app:
+    <<: *x-app
+    ports:
+      - 3000:3000
+    expose:
+      - 3000
+
+  postgres:
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - $PWD/postgres:/var/lib/postgresql/data
+    restart: always
+    depends_on:
+      - app

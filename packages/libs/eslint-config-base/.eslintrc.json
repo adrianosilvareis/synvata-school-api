@@ -1,0 +1,53 @@
+{
+  "env": {
+    "es2021": true
+  },
+  "extends": ["airbnb-base"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": "latest"
+  },
+  "ignorePatterns": ["**/dist/*.js"],
+  "plugins": ["@typescript-eslint"],
+  "rules": {
+    "import/prefer-default-export": "off",
+    "no-useless-constructor": ["off"],
+    "no-empty-function": ["error", { "allow": ["constructors"] }],
+    "import/no-extraneous-dependencies": ["off"],
+    "@typescript-eslint/no-useless-constructor": ["error"],
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      { "argsIgnorePattern": "^_" }
+    ],
+    "import/no-unresolved": ["off"],
+    "import/no-default-export": ["error"],
+    "import/no-dynamic-require": ["error"],
+    "import/first": ["error"],
+    "import/exports-last": ["off"],
+    "import/no-duplicates": ["error"],
+    "import/no-namespace": ["off"],
+    "no-param-reassign": ["off"],
+    "global-require": ["off"],
+    "no-restricted-syntax": ["off"],
+    "import/order": [
+      "error",
+      {
+        "newlines-between": "always",
+        "groups": ["builtin", "external", "internal", "unknown"],
+        "pathGroups": [
+          { "pattern": "@/**", "group": "internal" },
+          { "pattern": "#/**", "group": "unknown" }
+        ]
+      }
+    ],
+    "import/extensions": [
+      "error",
+      "never",
+      {
+        "json": "ignorePackages"
+      }
+    ],
+    "no-use-before-define": "off",
+    "class-methods-use-this": "off"
+  }
+}
