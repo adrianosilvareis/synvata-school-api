@@ -1,12 +1,12 @@
 import { Commands } from '@libs/commands-lib';
 import { inject, injectable } from 'inversify';
 
-import { ListCourseRepository } from '@/courses/domain/repositories/list-courses-repository';
+import { ListCoursesRepository } from '@/courses/domain/repositories/list-courses-repository';
 
 @injectable()
 export class ListCoursesCommand extends Commands {
   public constructor(
-    @inject(ListCourseRepository) private readonly courseRepository: ListCourseRepository,
+    @inject(ListCoursesRepository) private readonly courseRepository: ListCoursesRepository,
   ) {
     super();
   }
