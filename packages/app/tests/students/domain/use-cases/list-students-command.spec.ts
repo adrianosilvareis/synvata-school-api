@@ -1,35 +1,30 @@
-import { faker } from '@faker-js/faker';
-import { Uuid } from '@libs/uuid-lib';
-
+import { ListStudentsCommand } from '@/students/domain/use-cases/list-students-command';
 import { UnexpectedError } from '@/http-status/unexpected-error';
-import { AddCourseCommand } from '@/courses/domain/use-cases/add-course-command';
 
-import { CourseRepositoryStub } from '#/courses/stubs/course-repository-stub';
+import { StudentRepositoryStub } from '#/students/stubs/student-repository-stub';
 
-describe('AddCourseCommand', () => {
+describe('ListStudentsCommand', () => {
   it('should call "Success" on everything all right', async () => {
     // give
-    const { sut, courseRepository, listeners } = makeSut();
-    const params = { name: faker.name.fullName() };
-    courseRepository.newId = Uuid.generate().toString();
+    const { sut, listeners } = makeSut();
+
     // when
-    await sut.execute(params);
+    await sut.execute();
 
     // then
-    expect(listeners.onSuccessSpy).toHaveBeenCalledWith({ ...params, id: courseRepository.newId });
+    expect(listeners.onSuccessSpy).toHaveBeenCalled();
   });
 
   it('should call "Error" on throw UnexpectedError', async () => {
     // give
     const { sut, listeners } = makeSut();
-    const params = { name: faker.name.fullName() };
 
     jest.spyOn(listeners, 'callback').mockImplementationOnce(() => {
       throw new UnexpectedError('any_message');
     });
 
     // when
-    await sut.execute(params);
+    await sut.execute();
 
     // then
     expect(listeners.onErrorSpy).toHaveBeenCalledWith('any_message');
@@ -44,16 +39,15 @@ function makeSut() {
     callback: jest.fn(),
   };
 
-  const courseRepository = new CourseRepositoryStub();
-  courseRepository.callback = listeners.callback;
-  const sut = new AddCourseCommand(courseRepository);
+  const repository = new StudentRepositoryStub();
+  repository.callback = listeners.callback;
+  const sut = new ListStudentsCommand(repository);
 
   sut.on('Success', listeners.onSuccessSpy);
   sut.on('InternalServerError', listeners.onErrorSpy);
 
   return {
     sut,
-    courseRepository,
     listeners,
   };
 }

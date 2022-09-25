@@ -1,19 +1,19 @@
 import { Commands } from '@libs/commands-lib';
 import { inject, injectable } from 'inversify';
 
-import { ListCoursesRepository } from '@/courses/domain/repositories/list-courses-repository';
+import { ListStudentsRepository } from '@/students/domain/repositories/list-students-repository';
 
 @injectable()
-export class ListCoursesCommand extends Commands {
+export class ListStudentsCommand extends Commands {
   public constructor(
-    @inject(ListCoursesRepository) private readonly courseRepository: ListCoursesRepository,
+    @inject(ListStudentsRepository) private readonly repository: ListStudentsRepository,
   ) {
     super();
   }
 
   async execute(): Promise<void> {
     try {
-      const list = await this.courseRepository.list();
+      const list = await this.repository.list();
       this.emit('Success', list);
     } catch (e: unknown) {
       const error: Error = e as Error;

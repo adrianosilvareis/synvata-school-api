@@ -6,7 +6,8 @@ module.exports = {
   setupFilesAfterEnv: ['<rootDir>/tests/config/client-database.ts'],
   collectCoverageFrom: [
     '<rootDir>/src/**',
-    '!src/index.js',
+    '!src/index.ts',
+    '!src/**/index.ts',
     '!src/config/**',
   ],
   moduleNameMapper: {

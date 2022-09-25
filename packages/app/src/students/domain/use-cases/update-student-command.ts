@@ -1,28 +1,27 @@
 import { Commands } from '@libs/commands-lib';
 import { inject, injectable } from 'inversify';
 
-import { UpdateCourseRepository } from '@/courses/domain/repositories/update-course-repository';
+import { UpdateStudentRepository } from '@/students/domain/repositories/update-student-repository';
 import { NotFoundError } from '@/http-status/not-found-error';
-import { Course } from '@/courses/domain/entities/course';
+import { Student } from '@/students/domain/entities/student';
 
 @injectable()
-export class UpdateCourseCommand extends Commands<Course> {
+export class UpdateStudentCommand extends Commands<Student> {
   public constructor(
-    @inject(UpdateCourseRepository) private readonly courseRepository: UpdateCourseRepository,
+    @inject(UpdateStudentRepository) private readonly repository: UpdateStudentRepository,
   ) {
     super();
   }
 
-  async execute(params: Course): Promise<void> {
+  async execute(params: Student): Promise<void> {
     try {
-      const course = await this.courseRepository.update(params);
-      this.emit('Success', course);
+      const student = await this.repository.update(params);
+      this.emit('Success', student);
     } catch (error: unknown) {
       if (error instanceof NotFoundError) {
         this.emit('NotFoundError', error.message);
         return;
       }
-
       const e: Error = error as Error;
       this.emit('InternalServerError', e.message);
     }

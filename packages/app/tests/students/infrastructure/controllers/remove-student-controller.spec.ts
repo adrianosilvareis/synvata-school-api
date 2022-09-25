@@ -3,14 +3,14 @@ import { Response } from 'express';
 import StatusCodes from 'http-status-codes';
 import { Uuid } from '@libs/uuid-lib';
 
-import { RemoveCourseController } from '@/courses/infrastructure/controllers/remove-course-controller';
+import { RemoveStudentController } from '@/students/infrastructure/controllers/remove-student-controller';
 
-import { CommandStub } from '#/courses/stubs/command-stub';
+import { CommandStub } from '#/students/stubs/command-stub';
 
-describe('RemoveCourseController', () => {
+describe('RemoveStudentController', () => {
   it('should be return 200 on success', async () => {
     // give
-    const controller = new RemoveCourseController(new CommandStub());
+    const controller = new RemoveStudentController(new CommandStub());
     const params = { id: Uuid.generate().toString() };
 
     // // when
@@ -22,7 +22,7 @@ describe('RemoveCourseController', () => {
 
   it('should be return a error on internal server error', async () => {
     // give
-    const controller = new RemoveCourseController(new CommandStub('InternalServerError'));
+    const controller = new RemoveStudentController(new CommandStub('InternalServerError'));
     const params = { id: Uuid.generate().toString() };
 
     // // when
@@ -34,7 +34,7 @@ describe('RemoveCourseController', () => {
 
   it('should be return a notFound on not found error', async () => {
     // give
-    const controller = new RemoveCourseController(new CommandStub('NotFoundError'));
+    const controller = new RemoveStudentController(new CommandStub('NotFoundError'));
     const params = { id: Uuid.generate().toString() };
 
     // // when

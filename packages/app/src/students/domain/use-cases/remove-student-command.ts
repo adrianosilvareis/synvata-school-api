@@ -1,25 +1,25 @@
 import { Commands } from '@libs/commands-lib';
 import { inject, injectable } from 'inversify';
 
-import { RemoveCourseRepository } from '@/courses/domain//repositories/remove-course-repository';
+import { RemoveStudentRepository } from '@/students/domain/repositories/remove-student-repository';
 import { NotFoundError } from '@/http-status/not-found-error';
 
-export interface RemoveCourseParams {
+export interface RemoveStudentParams {
   id: string
 }
 
 @injectable()
-export class RemoveCourseCommand extends Commands<RemoveCourseParams> {
+export class RemoveStudentCommand extends Commands<RemoveStudentParams> {
   public constructor(
-    @inject(RemoveCourseRepository) private readonly courseRepository: RemoveCourseRepository,
+    @inject(RemoveStudentRepository) private readonly repository: RemoveStudentRepository,
   ) {
     super();
   }
 
-  async execute(params: RemoveCourseParams): Promise<void> {
+  async execute(params: RemoveStudentParams): Promise<void> {
     try {
-      const course = await this.courseRepository.removeById(params.id);
-      this.emit('Success', course);
+      const student = await this.repository.removeById(params.id);
+      this.emit('Success', student);
     } catch (error: unknown) {
       if (error instanceof NotFoundError) {
         this.emit('NotFoundError', error.message);

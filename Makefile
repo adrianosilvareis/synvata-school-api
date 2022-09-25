@@ -22,13 +22,12 @@ build_dev:
 build_libs:
 	docker-compose run --rm --no-deps -w ${PWD}/packages/libs/uuid-lib       app yarn build
 	docker-compose run --rm --no-deps -w ${PWD}/packages/libs/entity-builder app yarn build
-	docker-compose run --rm --no-deps -w ${PWD}/packages/libs/entity-lib     app yarn build
 	docker-compose run --rm --no-deps -w ${PWD}/packages/libs/commands-lib   app yarn build
 
 build_workspaces:
 	docker-compose run --rm --no-deps -w ${PWD} app yarn workspaces run build
 
-build_all: | build_libs build_modules build
+build_all: | build_libs build
 
 clear_build: | clear_folder_dist
 

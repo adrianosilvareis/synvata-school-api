@@ -2,16 +2,16 @@ import { createResponse, MockResponse } from 'node-mocks-http';
 import { Response } from 'express';
 import StatusCodes from 'http-status-codes';
 
-import { UpdateCourseController } from '@/courses/infrastructure/controllers/update-course-controller';
+import { UpdateStudentController } from '@/students/infrastructure/controllers/update-student-controller';
 
-import { CourseBuilder } from '#/courses/builders/course-builder';
-import { CommandStub } from '#/courses/stubs/command-stub';
+import { StudentBuilder } from '#/students/builders/student-builder';
+import { CommandStub } from '#/students/stubs/command-stub';
 
-describe('UpdateCourseController', () => {
+describe('UpdateStudentController', () => {
   it('should be return 200 on success', async () => {
     // give
-    const controller = new UpdateCourseController(new CommandStub());
-    const params = new CourseBuilder().build();
+    const controller = new UpdateStudentController(new CommandStub());
+    const params = new StudentBuilder().build();
 
     // // when
     const response = await controller.update(createResponse(), params) as MockResponse<Response>;
@@ -22,8 +22,8 @@ describe('UpdateCourseController', () => {
 
   it('should be return a error on internal server error', async () => {
     // give
-    const controller = new UpdateCourseController(new CommandStub('InternalServerError'));
-    const params = new CourseBuilder().build();
+    const controller = new UpdateStudentController(new CommandStub('InternalServerError'));
+    const params = new StudentBuilder().build();
 
     // // when
     const response = await controller.update(createResponse(), params) as MockResponse<Response>;
@@ -34,8 +34,8 @@ describe('UpdateCourseController', () => {
 
   it('should be return a notFound on not found error', async () => {
     // give
-    const controller = new UpdateCourseController(new CommandStub('NotFoundError'));
-    const params = new CourseBuilder().build();
+    const controller = new UpdateStudentController(new CommandStub('NotFoundError'));
+    const params = new StudentBuilder().build();
 
     // // when
     const response = await controller.update(createResponse(), params) as MockResponse<Response>;

@@ -2,7 +2,7 @@ import { NotFoundError } from '@/http-status/not-found-error';
 import { PostgresCourseRepositories } from '@/courses/infrastructure/repositories/postgres-course-repository';
 
 import { prismaMock } from '#/config/client-database';
-import { CourseBuilder } from '#/builders/course-builder';
+import { CourseBuilder } from '#/courses/builders/course-builder';
 
 describe('List', () => {
   test('should return course list', async () => {

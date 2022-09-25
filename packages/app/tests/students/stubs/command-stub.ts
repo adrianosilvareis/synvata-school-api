@@ -1,6 +1,6 @@
 import { Commands } from '@libs/commands-lib';
 
-export class ListCoursesCommandStub extends Commands<unknown> {
+export class CommandStub extends Commands<unknown> {
   public constructor(public command: string = 'Success') {
     super();
   }

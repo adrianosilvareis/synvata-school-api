@@ -1,17 +1,17 @@
 import { faker } from '@faker-js/faker';
 
 import { NotFoundError } from '@/http-status/not-found-error';
-import { RemoveCourseCommand } from '@/courses/domain/use-cases/remove-course-command';
+import { RemoveStudentCommand } from '@/students/domain/use-cases/remove-student-command';
 
-import { CourseBuilder } from '#/courses/builders/course-builder';
-import { CourseRepositoryStub } from '#/courses/stubs/course-repository-stub';
+import { StudentBuilder } from '#/students/builders/student-builder';
+import { StudentRepositoryStub } from '#/students/stubs/student-repository-stub';
 
-describe('RemoveCourseCommand', () => {
+describe('RemoveStudentCommand', () => {
   it('should call "Success" on everything all right', async () => {
     // give
-    const { sut, courseRepository, listeners } = makeSut();
-    courseRepository.courses = new CourseBuilder().buildMany(10);
-    const params = courseRepository.courses[0];
+    const { sut, repository, listeners } = makeSut();
+    repository.students = new StudentBuilder().buildMany(10);
+    const params = repository.students[0];
 
     // when
     await sut.execute({ id: params.id });
@@ -38,9 +38,9 @@ describe('RemoveCourseCommand', () => {
 
   it('should call "InternalServerError" on throw UnexpectedError', async () => {
     // give
-    const { sut, courseRepository, listeners } = makeSut();
-    courseRepository.courses = new CourseBuilder().buildMany(10);
-    const params = courseRepository.courses[0];
+    const { sut, repository, listeners } = makeSut();
+    repository.students = new StudentBuilder().buildMany(10);
+    const params = repository.students[0];
 
     jest.spyOn(listeners, 'callback').mockImplementationOnce(() => {
       throw new Error('any_message');
@@ -63,9 +63,9 @@ function makeSut() {
     callback: jest.fn(),
   };
 
-  const courseRepository = new CourseRepositoryStub();
-  courseRepository.callback = listeners.callback;
-  const sut = new RemoveCourseCommand(courseRepository);
+  const repository = new StudentRepositoryStub();
+  repository.callback = listeners.callback;
+  const sut = new RemoveStudentCommand(repository);
 
   sut.on('Success', listeners.onSuccessSpy);
   sut.on('NotFoundError', listeners.onNotFoundSpy);
@@ -73,7 +73,7 @@ function makeSut() {
 
   return {
     sut,
-    courseRepository,
+    repository,
     listeners,
   };
 }

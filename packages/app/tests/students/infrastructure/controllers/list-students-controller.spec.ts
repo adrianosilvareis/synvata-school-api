@@ -2,14 +2,14 @@ import { createResponse, MockResponse } from 'node-mocks-http';
 import { Response } from 'express';
 import StatusCodes from 'http-status-codes';
 
-import { ListCoursesController } from '@/courses/infrastructure/controllers/list-courses-controller';
+import { ListStudentsController } from '@/students/infrastructure/controllers/list-students-controller';
 
-import { CommandStub } from '#/courses/stubs/command-stub';
+import { CommandStub } from '#/students/stubs/command-stub';
 
-describe('ListCoursesController', () => {
+describe('ListStudentsController', () => {
   it('should be return 200 on success', async () => {
     // give
-    const controller = new ListCoursesController(new CommandStub());
+    const controller = new ListStudentsController(new CommandStub());
 
     // // when
     const response = await controller.list(createResponse()) as MockResponse<Response>;
@@ -21,7 +21,7 @@ describe('ListCoursesController', () => {
   it('should be return a error on internal server error', async () => {
     // give
 
-    const controller = new ListCoursesController(new CommandStub('InternalServerError'));
+    const controller = new ListStudentsController(new CommandStub('InternalServerError'));
 
     // // when
     const response = await controller.list(createResponse()) as MockResponse<Response>;

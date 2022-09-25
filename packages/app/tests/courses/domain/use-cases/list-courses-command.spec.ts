@@ -1,7 +1,7 @@
 import { ListCoursesCommand } from '@/courses/domain/use-cases/list-courses-command';
 import { UnexpectedError } from '@/http-status/unexpected-error';
 
-import { CourseRepositoryStub } from '#/stubs/course-services-stub';
+import { CourseRepositoryStub } from '#/courses/stubs/course-repository-stub';
 
 describe('ListCoursesCommand', () => {
   it('should call "Success" on everything all right', async () => {

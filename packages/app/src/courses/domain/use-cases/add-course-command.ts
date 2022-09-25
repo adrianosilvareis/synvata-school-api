@@ -19,13 +19,9 @@ export class AddCourseCommand extends Commands<AddCourseParams> {
     try {
       const course = await this.courseRepository.add(params);
       this.emit('Success', course);
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        this.emit('InternalServerError', error.message);
-        return;
-      }
-
-      this.emit('InternalServerError', error);
+    } catch (e: unknown) {
+      const error: Error = e as Error;
+      this.emit('InternalServerError', error.message);
     }
   }
 }
