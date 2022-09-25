@@ -7,7 +7,7 @@ import { ListCoursesController } from '@/courses/infrastructure/controllers/list
 import { ListCoursesCommandStub } from '#/stubs/list-course-command-stub';
 
 describe('ListCoursesController', () => {
-  it('should be return a token on success', async () => {
+  it('should be return 200 on success', async () => {
     // give
     const controller = new ListCoursesController(new ListCoursesCommandStub());
 

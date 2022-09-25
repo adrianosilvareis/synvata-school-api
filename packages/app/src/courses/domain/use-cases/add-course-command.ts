@@ -22,6 +22,7 @@ export class AddCourseCommand extends Commands<AddCourseParams> {
     } catch (error: unknown) {
       if (error instanceof Error) {
         this.emit('InternalServerError', error.message);
+        return;
       }
 
       this.emit('InternalServerError', error);

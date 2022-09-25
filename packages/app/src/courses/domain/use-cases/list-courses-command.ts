@@ -18,6 +18,7 @@ export class ListCoursesCommand extends Commands {
     } catch (error: unknown) {
       if (error instanceof Error) {
         this.emit('InternalServerError', error.message);
+        return;
       }
 
       this.emit('InternalServerError', error);

@@ -8,7 +8,7 @@ import { AddCourseController } from '@/courses/infrastructure/controllers/add-co
 import { AddCourseCommandStub } from '#/stubs/add-course-command-stub';
 
 describe('AddCourseController', () => {
-  it('should be return a token on success', async () => {
+  it('should be return 200 on success', async () => {
     // give
     const controller = new AddCourseController(new AddCourseCommandStub());
     const params = { name: faker.name.fullName() };
