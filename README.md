@@ -109,4 +109,4 @@ For the sake of delivery time I decided not to use `NestJS` but left `express` *
 
 ## Frontend project
 
-[SYNTAVA-SCHOOL-UI](https://github.com/adrianosilvareis/synvata-school-api)
+[SYNTAVA-SCHOOL-UI](https://github.com/adrianosilvareis/synvata-school-ui)
