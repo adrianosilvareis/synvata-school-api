@@ -5,12 +5,14 @@ import { Course } from '@/courses/domain/entities/course';
 import { ListCoursesRepository } from '@/courses/domain/repositories/list-courses-repository';
 import { AddCourseParams } from '@/courses/domain/use-cases/add-course-command';
 import { RemoveCourseRepository } from '@/courses/domain/repositories/remove-course-repository';
+import { GetCourseRepository } from '@/courses/domain/repositories/get-course-repository';
 
 export class CourseRepositoryStub implements
 ListCoursesRepository,
 AddCourseRepository,
 RemoveCourseRepository,
-UpdateCourseRepository {
+UpdateCourseRepository,
+GetCourseRepository {
   public courses: Course[] = [];
 
   public newId: string = '';
@@ -20,6 +22,17 @@ UpdateCourseRepository {
   async list(): Promise<Course[]> {
     this.callback();
     return this.courses;
+  }
+
+  async get(id: string): Promise<Course> {
+    const course = this.courses.find((c) => c.id === id);
+
+    if (!course) {
+      throw new NotFoundError('Record not exist.');
+    }
+
+    this.callback();
+    return course;
   }
 
   async add(params: AddCourseParams): Promise<Course> {

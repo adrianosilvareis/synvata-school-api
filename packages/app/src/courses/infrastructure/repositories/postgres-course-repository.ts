@@ -1,6 +1,7 @@
 import { injectable } from 'inversify';
 import { Uuid } from '@libs/uuid-lib/src/lib/uuid';
 
+import { GetCourseRepository } from '@/courses/domain/repositories/get-course-repository';
 import { UpdateCourseRepository } from '@/courses/domain/repositories/update-course-repository';
 import { NotFoundError } from '@/http-status/not-found-error';
 import { AddCourseRepository } from '@/courses/domain/repositories/add-course-repository';
@@ -14,7 +15,22 @@ export class PostgresCourseRepositories implements
   ListCoursesRepository,
   AddCourseRepository,
   RemoveCourseRepository,
-  UpdateCourseRepository {
+  UpdateCourseRepository,
+  GetCourseRepository {
+  async get(id: string): Promise<Course> {
+    const course = await client.svCourse.findFirst({
+      where: {
+        id,
+      },
+    });
+
+    if (!course) {
+      throw new NotFoundError('Record not exits.');
+    }
+
+    return course;
+  }
+
   async update(params: Course): Promise<Course> {
     try {
       const course = await client.svCourse.update({

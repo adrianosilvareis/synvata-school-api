@@ -1,7 +1,7 @@
 export class Student {
   public constructor(
-    public readonly id: string,
-    public readonly name: string,
-    public readonly email: string,
+    public id: string,
+    public name: string,
+    public email: string,
   ) { }
 }

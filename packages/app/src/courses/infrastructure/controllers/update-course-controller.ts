@@ -1,5 +1,5 @@
 import {
-  JsonController, Res, Body, Put,
+  JsonController, Res, Body, Put, Param,
 } from 'routing-controllers';
 import { Response } from 'express';
 import { inject, injectable } from 'inversify';
@@ -13,7 +13,7 @@ import { Course } from '@/courses/domain/entities/course';
 @JsonController()
 export class UpdateCourseController {
   constructor(
-    @inject(UpdateCourseCommand) private readonly removeCourseCommand: Commands<Course>,
+    @inject(UpdateCourseCommand) private readonly updateCourseCommand: Commands<Course>,
   ) {}
 
   private onSuccess(res: Response): (props: unknown) => void {
@@ -34,16 +34,19 @@ export class UpdateCourseController {
     };
   }
 
-  @Put('/courses')
+  @Put('/courses/:id')
   public async update(
     @Res() res: Response,
+    @Param('id') id: string,
     @Body() params: Course,
   ): Promise<Response> {
-    this.removeCourseCommand.on('InternalServerError', this.onError(res));
-    this.removeCourseCommand.on('NotFoundError', this.onNotFound(res));
-    this.removeCourseCommand.on('Success', this.onSuccess(res));
+    this.updateCourseCommand.on('InternalServerError', this.onError(res));
+    this.updateCourseCommand.on('NotFoundError', this.onNotFound(res));
+    this.updateCourseCommand.on('Success', this.onSuccess(res));
 
-    await this.removeCourseCommand.execute(params);
+    params.id = id;
+
+    await this.updateCourseCommand.execute(params);
     return res;
   }
 }

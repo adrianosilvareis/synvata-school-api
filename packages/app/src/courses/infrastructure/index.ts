@@ -8,9 +8,14 @@ import { RemoveCourseController } from '@/courses/infrastructure/controllers/rem
 import { RemoveCourseRepository } from '@/courses/domain/repositories/remove-course-repository';
 import { UpdateCourseController } from '@/courses/infrastructure/controllers/update-course-controller';
 import { UpdateCourseRepository } from '@/courses/domain/repositories/update-course-repository';
+import { GetCourseController } from '@/courses/infrastructure/controllers/get-course-controller';
+import { GetCourseRepository } from '@/courses/domain/repositories/get-course-repository';
 
 diContainer.bind(ListCoursesController).toSelf();
 diContainer.bind(ListCoursesRepository).to(PostgresCourseRepositories);
+
+diContainer.bind(GetCourseController).toSelf();
+diContainer.bind(GetCourseRepository).to(PostgresCourseRepositories);
 
 diContainer.bind(AddCourseController).toSelf();
 diContainer.bind(AddCourseRepository).to(PostgresCourseRepositories);

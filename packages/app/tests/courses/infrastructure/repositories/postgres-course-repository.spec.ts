@@ -23,6 +23,40 @@ describe('List', () => {
   });
 });
 
+describe('Get', () => {
+  test('should return course', async () => {
+    // give
+    const course = new CourseBuilder().build();
+
+    // when
+    prismaMock
+      .svCourse
+      .findFirst
+      .mockResolvedValueOnce(course);
+
+    const repository = new PostgresCourseRepositories();
+
+    // then
+    await expect(repository.get(course.id)).resolves.toEqual(course);
+  });
+
+  test('should return course', async () => {
+    // give
+    const course = new CourseBuilder().build();
+
+    // when
+    prismaMock
+      .svCourse
+      .findFirst
+      .mockResolvedValueOnce(null);
+
+    const repository = new PostgresCourseRepositories();
+
+    // then
+    await expect(repository.get(course.id)).rejects.toThrowError(new NotFoundError('Record not exits.'));
+  });
+});
+
 describe('Add', () => {
   test('should return new Course', async () => {
     // give
