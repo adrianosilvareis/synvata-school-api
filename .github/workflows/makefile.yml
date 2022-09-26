@@ -21,7 +21,7 @@ jobs:
       run: make install
       
     - name: Build project
-      run: make build
+      run: make build_all
       
     - name: Run lint
       run: make lint
