@@ -1,6 +1,7 @@
 import { injectable } from 'inversify';
 import { Uuid } from '@libs/uuid-lib/src/lib/uuid';
 
+import { ListStudentsByCourseIdRepository } from '@/students/domain/repositories/list-students-by-course-id-repository';
 import { GetStudentRepository } from '@/students/domain/repositories/get-student-repository';
 import { UpdateStudentRepository } from '@/students/domain/repositories/update-student-repository';
 import { NotFoundError } from '@/http-status/not-found-error';
@@ -16,7 +17,8 @@ export class PostgresStudentRepositories implements
   AddStudentRepository,
   RemoveStudentRepository,
   UpdateStudentRepository,
-  GetStudentRepository {
+  GetStudentRepository,
+  ListStudentsByCourseIdRepository {
   async update(params: Student): Promise<Student> {
     try {
       const student = await client.svStudent.update({
@@ -67,7 +69,20 @@ export class PostgresStudentRepositories implements
 
   async list(): Promise<Student[]> {
     const list = await client.svStudent.findMany();
-    return list.map((student) => new Student(student.id, student.name, student.email));
+    return list;
+  }
+
+  async listByCourseId(courseId: string): Promise<Student[]> {
+    const list = await client.svStudent.findMany({
+      where: {
+        courses: {
+          some: {
+            id: courseId,
+          },
+        },
+      },
+    });
+    return list;
   }
 
   async get(id: string): Promise<Student> {
