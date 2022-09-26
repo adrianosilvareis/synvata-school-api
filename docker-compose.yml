@@ -27,3 +27,10 @@ services:
     restart: always
     depends_on:
       - app
+      
+  migrate:
+    <<: *x-app
+    working_dir: $PWD
+    command: npx prisma db push
+    depends_on:
+      - postgres

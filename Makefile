@@ -32,8 +32,12 @@ build_all: | build_libs build
 clear_build: | clear_folder_dist
 
 # up
+migrate:
+	docker-compose -f docker-compose.yml up -d migrate
+
+# up
 up:
-	docker-compose -f docker-compose.yml up -d
+	docker-compose -f docker-compose.yml up -d postgres
 
 # up
 down:
