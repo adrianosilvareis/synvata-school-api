@@ -92,3 +92,17 @@ run ``make test_ci` command to see test coverage
 `make test_ci` run a tests of app project with coverage mode
 
 `make clear_coverage` remove coverage folder of app project
+
+## Technologies
+
+All project configuration was done by the auxiliary projects inside the `libs` module
+so the default configuration of `lint`, `jest` and `typescript` can be found there.
+Within this module you can also find auxiliary projects like `entity-builder` which helps 
+to create random objects for testing and `commands-lib` which can be used to extend the `commands` files of the `app` project.
+
+The project as a whole uses the `monorepo` architecture but the main project uses the `hexagonal` architecture
+having its modules distributed in the main folder and each module contained a structure very similar to each other.
+
+The project also has unit tests that can be found in the `tests` folder, repeating the same structure as in the `src` folder.
+
+For the sake of delivery time I decided not to use `NestJS` but left `express` **completely uncoupled** from the project showing that it **makes no difference which framework will be used in the project**.
