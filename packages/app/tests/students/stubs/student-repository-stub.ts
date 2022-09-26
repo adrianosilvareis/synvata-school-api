@@ -1,3 +1,4 @@
+import { ListStudentsByCourseIdRepository } from '@/students/domain/repositories/list-students-by-course-id-repository';
 import { GetStudentRepository } from '@/students/domain/repositories/get-student-repository';
 import { UpdateStudentRepository } from '@/students/domain/repositories/update-student-repository';
 import { NotFoundError } from '@/http-status/not-found-error';
@@ -12,7 +13,8 @@ ListStudentsRepository,
 AddStudentRepository,
 RemoveStudentRepository,
 UpdateStudentRepository,
-GetStudentRepository {
+GetStudentRepository,
+ListStudentsByCourseIdRepository {
   public students: Student[] = [];
 
   public newId: string = '';
@@ -22,6 +24,12 @@ GetStudentRepository {
   async list(): Promise<Student[]> {
     this.callback();
     return this.students;
+  }
+
+  // eslint-disable-next-line no-unused-vars
+  async listByCourseId(_courseId: string): Promise<Student[]> {
+    this.callback();
+    return [];
   }
 
   async get(id: string): Promise<Student> {

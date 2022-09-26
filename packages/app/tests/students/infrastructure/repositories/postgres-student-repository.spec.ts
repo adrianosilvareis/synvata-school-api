@@ -23,6 +23,25 @@ describe('List', () => {
   });
 });
 
+describe('ListByCourseId', () => {
+  test('should return student list filtered by courseId', async () => {
+    // give
+    const list = new StudentBuilder()
+      .buildMany(10);
+
+    // when
+    prismaMock
+      .svStudent
+      .findMany
+      .mockResolvedValueOnce(list);
+
+    const repository = new PostgresStudentRepositories();
+
+    // then
+    await expect(repository.listByCourseId('any_course_id')).resolves.toEqual(list);
+  });
+});
+
 describe('Get', () => {
   test('should return course', async () => {
     // give
