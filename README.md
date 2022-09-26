@@ -107,6 +107,12 @@ The project also has unit tests that can be found in the `tests` folder, repeati
 
 For the sake of delivery time I decided not to use `NestJS` but left `express` **completely uncoupled** from the project showing that it **makes no difference which framework will be used in the project**.
 
+## Extra
+
+the **github workflow** was used to evaluate the **quality** of each merge with the `master` 
+
+[Github Actions](https://github.com/adrianosilvareis/synvata-school-api/actions)
+
 ## Frontend project
 
 [SYNTAVA-SCHOOL-UI](https://github.com/adrianosilvareis/synvata-school-ui)
