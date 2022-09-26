@@ -1,3 +1,4 @@
+import { GetStudentRepository } from '@/students/domain/repositories/get-student-repository';
 import { UpdateStudentRepository } from '@/students/domain/repositories/update-student-repository';
 import { NotFoundError } from '@/http-status/not-found-error';
 import { AddStudentRepository } from '@/students/domain/repositories/add-student-repository';
@@ -10,7 +11,8 @@ export class StudentRepositoryStub implements
 ListStudentsRepository,
 AddStudentRepository,
 RemoveStudentRepository,
-UpdateStudentRepository {
+UpdateStudentRepository,
+GetStudentRepository {
   public students: Student[] = [];
 
   public newId: string = '';
@@ -20,6 +22,17 @@ UpdateStudentRepository {
   async list(): Promise<Student[]> {
     this.callback();
     return this.students;
+  }
+
+  async get(id: string): Promise<Student> {
+    const student = this.students.find((s) => s.id === id);
+
+    if (!student) {
+      throw new NotFoundError('Record not exist.');
+    }
+
+    this.callback();
+    return student;
   }
 
   async add(params: AddStudentParams): Promise<Student> {

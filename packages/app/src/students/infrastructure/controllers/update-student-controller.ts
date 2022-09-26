@@ -1,5 +1,5 @@
 import {
-  JsonController, Res, Body, Put,
+  JsonController, Res, Body, Put, Param,
 } from 'routing-controllers';
 import { Response } from 'express';
 import { inject, injectable } from 'inversify';
@@ -13,7 +13,7 @@ import { Student } from '@/students/domain/entities/student';
 @JsonController()
 export class UpdateStudentController {
   constructor(
-    @inject(UpdateStudentCommand) private readonly removeStudentCommand: Commands<Student>,
+    @inject(UpdateStudentCommand) private readonly updateStudentCommand: Commands<Student>,
   ) {}
 
   private onSuccess(res: Response): (props: unknown) => void {
@@ -34,16 +34,19 @@ export class UpdateStudentController {
     };
   }
 
-  @Put('/students')
+  @Put('/students/:id')
   public async update(
     @Res() res: Response,
-    @Body() params: Student,
+    @Param('id') id :string,
+    @Body() body: Student,
   ): Promise<Response> {
-    this.removeStudentCommand.on('InternalServerError', this.onError(res));
-    this.removeStudentCommand.on('NotFoundError', this.onNotFound(res));
-    this.removeStudentCommand.on('Success', this.onSuccess(res));
+    this.updateStudentCommand.on('InternalServerError', this.onError(res));
+    this.updateStudentCommand.on('NotFoundError', this.onNotFound(res));
+    this.updateStudentCommand.on('Success', this.onSuccess(res));
 
-    await this.removeStudentCommand.execute(params);
+    body.id = id;
+
+    await this.updateStudentCommand.execute(body);
     return res;
   }
 }

@@ -1,6 +1,7 @@
 import { injectable } from 'inversify';
 import { Uuid } from '@libs/uuid-lib/src/lib/uuid';
 
+import { GetStudentRepository } from '@/students/domain/repositories/get-student-repository';
 import { UpdateStudentRepository } from '@/students/domain/repositories/update-student-repository';
 import { NotFoundError } from '@/http-status/not-found-error';
 import { AddStudentRepository } from '@/students/domain/repositories/add-student-repository';
@@ -14,14 +15,22 @@ export class PostgresStudentRepositories implements
   ListStudentsRepository,
   AddStudentRepository,
   RemoveStudentRepository,
-  UpdateStudentRepository {
+  UpdateStudentRepository,
+  GetStudentRepository {
   async update(params: Student): Promise<Student> {
     try {
       const student = await client.svStudent.update({
         where: {
           id: params.id,
         },
-        data: params,
+        data: {
+          id: params.id,
+          name: params.name,
+          email: params.email,
+          courses: {
+            set: params.courses?.map(({ id }) => ({ id })),
+          },
+        },
       });
       return student;
     } catch (error) {
@@ -48,14 +57,33 @@ export class PostgresStudentRepositories implements
         id: Uuid.generate().toString(),
         name: params.name,
         email: params.email,
+        courses: {
+          connect: params.courses?.map(({ id }) => ({ id })),
+        },
       },
     });
-
     return student;
   }
 
   async list(): Promise<Student[]> {
     const list = await client.svStudent.findMany();
     return list.map((student) => new Student(student.id, student.name, student.email));
+  }
+
+  async get(id: string): Promise<Student> {
+    const student = await client.svStudent.findFirst({
+      where: {
+        id,
+      },
+      include: {
+        courses: true,
+      },
+    });
+
+    if (!student) {
+      throw new NotFoundError('Record not exist.');
+    }
+
+    return student;
   }
 }

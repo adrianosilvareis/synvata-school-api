@@ -40,7 +40,7 @@ describe('Get', () => {
     await expect(repository.get(course.id)).resolves.toEqual(course);
   });
 
-  test('should return course', async () => {
+  test('should not return course', async () => {
     // give
     const course = new CourseBuilder().build();
 

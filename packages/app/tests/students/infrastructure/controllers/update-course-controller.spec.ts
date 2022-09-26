@@ -14,7 +14,8 @@ describe('UpdateStudentController', () => {
     const params = new StudentBuilder().build();
 
     // // when
-    const response = await controller.update(createResponse(), params) as MockResponse<Response>;
+    const response = await controller
+      .update(createResponse(), params.id, params) as MockResponse<Response>;
 
     // then
     expect(response.statusCode).toBe(StatusCodes.OK);
@@ -26,7 +27,8 @@ describe('UpdateStudentController', () => {
     const params = new StudentBuilder().build();
 
     // // when
-    const response = await controller.update(createResponse(), params) as MockResponse<Response>;
+    const response = await controller
+      .update(createResponse(), params.id, params) as MockResponse<Response>;
 
     // then
     expect(response.statusCode).toBe(StatusCodes.INTERNAL_SERVER_ERROR);
@@ -38,7 +40,8 @@ describe('UpdateStudentController', () => {
     const params = new StudentBuilder().build();
 
     // // when
-    const response = await controller.update(createResponse(), params) as MockResponse<Response>;
+    const response = await controller
+      .update(createResponse(), params.id, params) as MockResponse<Response>;
 
     // then
     expect(response.statusCode).toBe(StatusCodes.NOT_FOUND);

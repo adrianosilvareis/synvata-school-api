@@ -8,9 +8,14 @@ import { RemoveStudentController } from '@/students/infrastructure/controllers/r
 import { RemoveStudentRepository } from '@/students/domain/repositories/remove-student-repository';
 import { UpdateStudentController } from '@/students/infrastructure/controllers/update-student-controller';
 import { UpdateStudentRepository } from '@/students/domain/repositories/update-student-repository';
+import { GetStudentController } from '@/students/infrastructure/controllers/get-student-controller';
+import { GetStudentRepository } from '@/students/domain/repositories/get-student-repository';
 
 diContainer.bind(ListStudentsController).toSelf();
 diContainer.bind(ListStudentsRepository).to(PostgresStudentRepositories);
+
+diContainer.bind(GetStudentController).toSelf();
+diContainer.bind(GetStudentRepository).to(PostgresStudentRepositories);
 
 diContainer.bind(AddStudentController).toSelf();
 diContainer.bind(AddStudentRepository).to(PostgresStudentRepositories);
