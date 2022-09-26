@@ -1,4 +1,4 @@
-# SYNVATA-SCHOOL
+# SYNVATA-SCHOOL-API
 
 this is a `monorepo` project divided between `libs` and `app` modules inside the `package` folder.
 
@@ -106,3 +106,7 @@ having its modules distributed in the main folder and each module contained a st
 The project also has unit tests that can be found in the `tests` folder, repeating the same structure as in the `src` folder.
 
 For the sake of delivery time I decided not to use `NestJS` but left `express` **completely uncoupled** from the project showing that it **makes no difference which framework will be used in the project**.
+
+## Frontend project
+
+[SYNTAVA-SCHOOL-UI](https://github.com/adrianosilvareis/synvata-school-api)
