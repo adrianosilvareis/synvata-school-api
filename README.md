@@ -56,7 +56,7 @@ follow this step by step the first time you run the project:
 `duplicate .env.sample file with .env name`
 
 `make migrate` to migrate all tables to database
-****
+
 `make build_all` to build all libs and app module
 
 `make down` to take down all running containers
